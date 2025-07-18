@@ -1,34 +1,23 @@
-// app/index.tsx
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useRouter } from 'expo-router';
 
 export default function MenuScreen() {
   const router = useRouter();
 
-  const GameButton = ({ label, path }: { label: string; path: string }) => {
-    const scaleAnim = new Animated.Value(1);
-
-    const pressIn = () => Animated.spring(scaleAnim, { toValue: 0.95, useNativeDriver: true }).start();
-    const pressOut = () => Animated.spring(scaleAnim, { toValue: 1, useNativeDriver: true }).start();
-
-    return (
-      <Pressable onPressIn={pressIn} onPressOut={pressOut} onPress={() => router.push(path)}>
-        <Animated.View style={[styles.button, { transform: [{ scale: scaleAnim }] }]}>
-          <Text style={styles.buttonText}>{label}</Text>
-        </Animated.View>
-      </Pressable>
-    );
-  };
+  const GameButton = ({ label, path }: { label: string; path: string }) => (
+    <Pressable style={styles.button} onPress={() => router.push(path)}>
+      <Text style={styles.buttonText}>{label}</Text>
+    </Pressable>
+  );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>🍊 Bienvenido, Yalel</Text>
-      <Text style={styles.subtitle}>¡Elegí qué juego querés jugar!</Text>
+      <Text style={styles.title}>🎮 Mini Juegos Básicos</Text>
 
-      <GameButton label="♟️ Ajedrez" path="/chess" />
-      <GameButton label="⭕ Tres en Raya" path="/ticTacToe" />
-      <GameButton label="🐍 Culebrita" path="/snake" />
+      <GameButton label="🔢 Adivina el número" path="/guess" />
+      <GameButton label="❌⭕ Tres en raya" path="/TicTacToe" />
+      <GameButton label="🧠 Memoria rápida" path="/memory" />
     </View>
   );
 }
@@ -42,26 +31,24 @@ const styles = StyleSheet.create({
     padding: 24,
   },
   title: {
-    fontSize: 32,
+    fontSize: 28,
     color: '#f97316',
     fontWeight: 'bold',
-    marginBottom: 12,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#e2e8f0',
-    textAlign: 'center',
     marginBottom: 40,
+    textAlign: 'center',
   },
   button: {
+    width: 240,
     backgroundColor: '#f97316',
     paddingVertical: 14,
-    paddingHorizontal: 28,
-    borderRadius: 16,
+    paddingHorizontal: 24,
+    borderRadius: 12,
     marginVertical: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 18,
     color: '#fff',
     fontWeight: 'bold',
     textAlign: 'center',
